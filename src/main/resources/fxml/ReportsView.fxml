@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane styleClass="main-container" 
+            xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.inventory.controllers.ReportsController">
+    
+    <!-- SIDEBAR -->
+    <left>
+        <VBox styleClass="sidebar" spacing="5">
+            <VBox styleClass="sidebar-header" spacing="5">
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <StackPane>
+                        <Circle radius="22" styleClass="logo-circle"/>
+                        <FontIcon iconLiteral="fas-boxes" iconSize="22" styleClass="logo-icon"/>
+                    </StackPane>
+                    <VBox spacing="2">
+                        <Label text="StockPro" styleClass="sidebar-logo"/>
+                        <Label text="Gestion de Stock" styleClass="sidebar-subtitle"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+            
+            <Separator opacity="0.1"/>
+            
+            <VBox spacing="4">
+                <Label text="MENU PRINCIPAL" styleClass="nav-section-title"/>
+                
+                <MFXButton text="Tableau de bord" styleClass="nav-item" 
+                           onAction="#navigateToDashboard" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-tachometer-alt" iconSize="20"/></graphic>
+                </MFXButton>
+                
+                <MFXButton text="Produits" styleClass="nav-item" 
+                           onAction="#navigateToProducts" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-box" iconSize="20"/></graphic>
+                </MFXButton>
+                
+                <MFXButton text="Catégories" styleClass="nav-item" 
+                           onAction="#navigateToCategories" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-folder" iconSize="18"/></graphic>
+                </MFXButton>
+                
+                <MFXButton text="Ventes" styleClass="nav-item" 
+                           onAction="#navigateToSales" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-shopping-cart" iconSize="18"/></graphic>
+                </MFXButton>
+            </VBox>
+            
+            <VBox fx:id="adminSection" spacing="4" managed="false" visible="false">
+                <Label text="ADMINISTRATION" styleClass="nav-section-title"/>
+                <MFXButton text="Utilisateurs" styleClass="nav-item" 
+                           onAction="#navigateToUsers" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-users" iconSize="18"/></graphic>
+                </MFXButton>
+                <MFXButton text="Rapports" styleClass="nav-item, active" 
+                           maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-chart-bar" iconSize="18"/></graphic>
+                </MFXButton>
+            </VBox>
+            
+            <Region VBox.vgrow="ALWAYS"/>
+            
+            <VBox styleClass="user-profile-section" spacing="12">
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <StackPane>
+                        <Circle radius="20" styleClass="user-avatar"/>
+                        <FontIcon iconLiteral="fas-user" iconSize="18" styleClass="logo-icon"/>
+                    </StackPane>
+                    <VBox spacing="2" HBox.hgrow="ALWAYS">
+                        <Label fx:id="userNameLabel" text="Utilisateur" styleClass="user-name"/>
+                        <Label fx:id="userRoleLabel" text="Rôle" styleClass="user-role"/>
+                    </VBox>
+                </HBox>
+                <MFXButton text="Déconnexion" styleClass="nav-item" onAction="#handleLogout" 
+                           maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-sign-out-alt" iconSize="16"/></graphic>
+                </MFXButton>
+            </VBox>
+        </VBox>
+    </left>
+    
+    <!-- CONTENT -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="content-scroll">
+            <VBox styleClass="content-area" spacing="20">
+                
+                <!-- Header -->
+                <HBox alignment="CENTER_LEFT" spacing="20">
+                    <VBox HBox.hgrow="ALWAYS">
+                        <Label text="Rapports et Statistiques" styleClass="page-title"/>
+                        <Label text="Analysez les performances de votre entreprise" styleClass="page-subtitle"/>
+                    </VBox>
+                    
+                    <!-- Date Range Selector -->
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <MFXComboBox fx:id="periodSelector" promptText="Période" prefWidth="150" floatMode="DISABLED"/>
+                        <MFXButton text="Exporter PDF" styleClass="btn, btn-secondary" onAction="#handleExportPDF">
+                            <graphic><FontIcon iconLiteral="fas-file-pdf" iconSize="14"/></graphic>
+                        </MFXButton>
+                    </HBox>
+                </HBox>
+                
+                <!-- Summary Stats -->
+                <GridPane hgap="20" vgap="20">
+                    
+                    <VBox styleClass="stat-card, primary" GridPane.columnIndex="0" GridPane.rowIndex="0" 
+                          GridPane.hgrow="ALWAYS" spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <StackPane styleClass="stat-icon, primary" alignment="CENTER">
+                                <FontIcon iconLiteral="fas-coins" iconSize="24" style="-fx-icon-color: #6366F1;"/>
+                            </StackPane>
+                            <VBox>
+                                <Label fx:id="totalRevenueLabel" text="0 FCFA" styleClass="stat-value"/>
+                                <Label text="Chiffre d'affaires total" styleClass="stat-label"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    
+                    <VBox styleClass="stat-card, success" GridPane.columnIndex="1" GridPane.rowIndex="0" 
+                          GridPane.hgrow="ALWAYS" spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <StackPane styleClass="stat-icon, success" alignment="CENTER">
+                                <FontIcon iconLiteral="fas-receipt" iconSize="22" style="-fx-icon-color: #10B981;"/>
+                            </StackPane>
+                            <VBox>
+                                <Label fx:id="totalSalesLabel" text="0" styleClass="stat-value"/>
+                                <Label text="Nombre de ventes" styleClass="stat-label"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    
+                    <VBox styleClass="stat-card, warning" GridPane.columnIndex="2" GridPane.rowIndex="0" 
+                          GridPane.hgrow="ALWAYS" spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <StackPane styleClass="stat-icon, warning" alignment="CENTER">
+                                <FontIcon iconLiteral="fas-box" iconSize="22" style="-fx-icon-color: #F59E0B;"/>
+                            </StackPane>
+                            <VBox>
+                                <Label fx:id="totalProductsSoldLabel" text="0" styleClass="stat-value"/>
+                                <Label text="Produits vendus" styleClass="stat-label"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    
+                    <VBox styleClass="stat-card" GridPane.columnIndex="3" GridPane.rowIndex="0" 
+                          GridPane.hgrow="ALWAYS" spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <StackPane styleClass="stat-icon, primary" alignment="CENTER">
+                                <FontIcon iconLiteral="fas-chart-line" iconSize="22" style="-fx-icon-color: #8B5CF6;"/>
+                            </StackPane>
+                            <VBox>
+                                <Label fx:id="avgSaleLabel" text="0 FCFA" styleClass="stat-value"/>
+                                <Label text="Panier moyen" styleClass="stat-label"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    
+                </GridPane>
+                
+                <!-- Charts Row 1 -->
+                <HBox spacing="20">
+                    
+                    <!-- Sales Trend -->
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="15">
+                        <HBox styleClass="card-header" alignment="CENTER_LEFT">
+                            <Label text="Évolution des ventes" styleClass="card-title"/>
+                        </HBox>
+                        <LineChart fx:id="salesTrendChart" legendVisible="false" minHeight="300">
+                            <xAxis><CategoryAxis label="Date"/></xAxis>
+                            <yAxis><NumberAxis label="Montant (FCFA)"/></yAxis>
+                        </LineChart>
+                    </VBox>
+                    
+                    <!-- Top Products -->
+                    <VBox styleClass="card" minWidth="350" maxWidth="350" spacing="15">
+                        <HBox styleClass="card-header" alignment="CENTER_LEFT">
+                            <Label text="Produits les plus vendus" styleClass="card-title"/>
+                        </HBox>
+                        <VBox fx:id="topProductsContainer" spacing="10">
+                            <padding><Insets topRightBottomLeft="5"/></padding>
+                        </VBox>
+                    </VBox>
+                    
+                </HBox>
+                
+                <!-- Charts Row 2 -->
+                <HBox spacing="20">
+                    
+                    <!-- Sales by Category -->
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="15">
+                        <HBox styleClass="card-header" alignment="CENTER_LEFT">
+                            <Label text="Ventes par catégorie" styleClass="card-title"/>
+                        </HBox>
+                        <PieChart fx:id="categoryPieChart" legendSide="RIGHT" minHeight="280"/>
+                    </VBox>
+                    
+                    <!-- Sales by Payment Method -->
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="15">
+                        <HBox styleClass="card-header" alignment="CENTER_LEFT">
+                            <Label text="Ventes par mode de paiement" styleClass="card-title"/>
+                        </HBox>
+                        <BarChart fx:id="paymentMethodChart" legendVisible="false" minHeight="280">
+                            <xAxis><CategoryAxis label="Mode"/></xAxis>
+                            <yAxis><NumberAxis label="Montant (FCFA)"/></yAxis>
+                        </BarChart>
+                    </VBox>
+                    
+                </HBox>
+                
+                <!-- Low Stock Report -->
+                <VBox styleClass="card" spacing="15">
+                    <HBox styleClass="card-header" alignment="CENTER_LEFT">
+                        <FontIcon iconLiteral="fas-exclamation-triangle" iconSize="18" style="-fx-icon-color: #F59E0B;"/>
+                        <Label text="Rapport stock faible" styleClass="card-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <MFXButton text="Exporter" styleClass="btn, btn-secondary" onAction="#handleExportLowStock">
+                            <graphic><FontIcon iconLiteral="fas-download" iconSize="12"/></graphic>
+                        </MFXButton>
+                    </HBox>
+                    <VBox fx:id="lowStockReportContainer" spacing="8">
+                        <padding><Insets topRightBottomLeft="5"/></padding>
+                    </VBox>
+                </VBox>
+                
+            </VBox>
+        </ScrollPane>
+    </center>
+    
+</BorderPane>

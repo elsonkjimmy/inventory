@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane styleClass="main-container" 
+            xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1">
+    
+    <center>
+        <VBox alignment="CENTER" spacing="20" style="-fx-background-color: #0F172A;">
+            <FontIcon iconLiteral="fas-cog" iconSize="64" style="-fx-icon-color: #475569;"/>
+            <Label text="Paramètres" style="-fx-text-fill: #F8FAFC; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+            <Label text="Cette fonctionnalité sera disponible prochainement" style="-fx-text-fill: #64748B; -fx-font-size: 14px;"/>
+        </VBox>
+    </center>
+    
+</BorderPane>

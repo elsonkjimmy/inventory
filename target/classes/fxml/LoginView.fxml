@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<StackPane fx:id="rootPane" styleClass="login-root" 
+           xmlns="http://javafx.com/javafx/17" 
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.inventory.controllers.LoginController">
+    
+    <!-- Background avec gradient animé -->
+    <VBox styleClass="login-background" alignment="CENTER">
+        
+        <!-- Particules décoratives -->
+        <Circle styleClass="decoration-circle-1" radius="200" opacity="0.1"/>
+        <Circle styleClass="decoration-circle-2" radius="150" opacity="0.08"/>
+        <Circle styleClass="decoration-circle-3" radius="100" opacity="0.05"/>
+        
+    </VBox>
+    
+    <!-- Card de connexion -->
+    <VBox fx:id="loginCard" styleClass="login-card" alignment="CENTER" spacing="20" maxWidth="400">
+        <padding>
+            <Insets top="40" right="30" bottom="40" left="30"/>
+        </padding>
+        
+        <effect>
+            <DropShadow color="rgba(0,0,0,0.3)" radius="30" spread="0.1"/>
+        </effect>
+        
+        <!-- Logo / Icône -->
+        <StackPane styleClass="logo-container">
+            <Circle radius="50" styleClass="logo-circle"/>
+            <FontIcon iconLiteral="fas-boxes" iconSize="48" styleClass="logo-icon"/>
+        </StackPane>
+        
+        <!-- Titre -->
+        <VBox alignment="CENTER" spacing="8">
+            <Label text="Bienvenue" styleClass="login-title"/>
+            <Label text="Système de Gestion de Stock" styleClass="login-subtitle"/>
+        </VBox>
+        
+        <!-- Formulaire -->
+        <VBox spacing="20" styleClass="login-form">
+            <padding>
+                <Insets top="20"/>
+            </padding>
+            
+            <!-- Champ Username -->
+            <VBox spacing="8">
+                <Label text="Nom d'utilisateur" styleClass="field-label"/>
+                <MFXTextField fx:id="usernameField" 
+                              floatMode="DISABLED"
+                              promptText="Entrez votre identifiant"
+                              styleClass="login-field"
+                              prefHeight="50"
+                              maxWidth="Infinity">
+                    <font>
+                        <Font size="14"/>
+                    </font>
+                </MFXTextField>
+            </VBox>
+            
+            <!-- Champ Password -->
+            <VBox spacing="8">
+                <Label text="Mot de passe" styleClass="field-label"/>
+                <MFXPasswordField fx:id="passwordField"
+                                  floatMode="DISABLED"
+                                  promptText="Entrez votre mot de passe"
+                                  styleClass="login-field"
+                                  prefHeight="50"
+                                  maxWidth="Infinity">
+                    <font>
+                        <Font size="14"/>
+                    </font>
+                </MFXPasswordField>
+            </VBox>
+            
+            <!-- Message d'erreur -->
+            <Label fx:id="errorLabel" 
+                   styleClass="error-label" 
+                   visible="false"
+                   wrapText="true"
+                   maxWidth="Infinity"/>
+            
+            <!-- Bouton de connexion -->
+            <MFXButton fx:id="loginButton" 
+                       text="Se connecter" 
+                       onAction="#handleLogin"
+                       styleClass="login-button"
+                       prefHeight="55"
+                       maxWidth="Infinity">
+                <font>
+                    <Font name="System Bold" size="16"/>
+                </font>
+            </MFXButton>
+            
+        </VBox>
+        
+        <!-- Status de connexion DB -->
+        <HBox alignment="CENTER" spacing="10">
+            <padding>
+                <Insets top="10"/>
+            </padding>
+            <FontIcon iconLiteral="fas-database" iconSize="14" styleClass="status-icon"/>
+            <Label fx:id="statusLabel" text="Initialisation..." styleClass="status-label"/>
+        </HBox>
+        
+        <!-- Footer -->
+        <VBox alignment="CENTER" spacing="5">
+            <padding>
+                <Insets top="20"/>
+            </padding>
+            <Label text="Inventory Management System v1.0" styleClass="footer-text"/>
+            <Label text="© 2024 - Tous droits réservés" styleClass="footer-copyright"/>
+        </VBox>
+        
+    </VBox>
+    
+</StackPane>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane styleClass="main-container" 
+            xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.inventory.controllers.SalesController">
+    
+    <!-- SIDEBAR -->
+    <left>
+        <VBox styleClass="sidebar" spacing="5">
+            <VBox styleClass="sidebar-header" spacing="5">
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <StackPane>
+                        <Circle radius="22" styleClass="logo-circle"/>
+                        <FontIcon iconLiteral="fas-boxes" iconSize="22" styleClass="logo-icon"/>
+                    </StackPane>
+                    <VBox spacing="2">
+                        <Label text="StockPro" styleClass="sidebar-logo"/>
+                        <Label text="Gestion de Stock" styleClass="sidebar-subtitle"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+            
+            <Separator opacity="0.1"/>
+            
+            <VBox spacing="4">
+                <Label text="MENU PRINCIPAL" styleClass="nav-section-title"/>
+                
+                <MFXButton text="Tableau de bord" styleClass="nav-item" 
+                           onAction="#navigateToDashboard" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-tachometer-alt" iconSize="20"/></graphic>
+                </MFXButton>
+                
+                <MFXButton text="Produits" styleClass="nav-item" 
+                           onAction="#navigateToProducts" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-box" iconSize="20"/></graphic>
+                </MFXButton>
+                
+                <MFXButton text="Catégories" styleClass="nav-item" 
+                           onAction="#navigateToCategories" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-folder" iconSize="18"/></graphic>
+                </MFXButton>
+                
+                <MFXButton text="Ventes" styleClass="nav-item, active" 
+                           maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-shopping-cart" iconSize="18"/></graphic>
+                </MFXButton>
+            </VBox>
+            
+            <VBox fx:id="adminSection" spacing="4" managed="false" visible="false">
+                <Label text="ADMINISTRATION" styleClass="nav-section-title"/>
+                <MFXButton text="Utilisateurs" styleClass="nav-item" 
+                           onAction="#navigateToUsers" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-users" iconSize="18"/></graphic>
+                </MFXButton>
+                <MFXButton text="Rapports" styleClass="nav-item" 
+                           onAction="#navigateToReports" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-chart-bar" iconSize="18"/></graphic>
+                </MFXButton>
+            </VBox>
+            
+            <Region VBox.vgrow="ALWAYS"/>
+            
+            <VBox styleClass="user-profile-section" spacing="12">
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <StackPane>
+                        <Circle radius="20" styleClass="user-avatar"/>
+                        <FontIcon iconLiteral="fas-user" iconSize="18" styleClass="logo-icon"/>
+                    </StackPane>
+                    <VBox spacing="2" HBox.hgrow="ALWAYS">
+                        <Label fx:id="userNameLabel" text="Utilisateur" styleClass="user-name"/>
+                        <Label fx:id="userRoleLabel" text="Rôle" styleClass="user-role"/>
+                    </VBox>
+                </HBox>
+                <MFXButton text="Déconnexion" styleClass="nav-item" onAction="#handleLogout" 
+                           maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-sign-out-alt" iconSize="16"/></graphic>
+                </MFXButton>
+            </VBox>
+        </VBox>
+    </left>
+    
+    <!-- CONTENT -->
+    <center>
+        <HBox spacing="0">
+            
+            <!-- Products Selection Panel -->
+            <VBox styleClass="content-area" spacing="15" HBox.hgrow="ALWAYS" style="-fx-padding: 20;">
+                
+                <Label text="Sélection des produits" styleClass="page-title" style="-fx-font-size: 20px;"/>
+                
+                <!-- Search -->
+                <HBox styleClass="search-box" alignment="CENTER_LEFT" spacing="10">
+                    <FontIcon iconLiteral="fas-search" iconSize="16" styleClass="search-icon"/>
+                    <MFXTextField fx:id="productSearchField" 
+                                  promptText="Rechercher un produit..." 
+                                  floatMode="DISABLED"
+                                  HBox.hgrow="ALWAYS"/>
+                </HBox>
+                
+                <!-- Products List -->
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="products-scroll">
+                    <VBox fx:id="productsListContainer" spacing="10">
+                        <padding><Insets topRightBottomLeft="5"/></padding>
+                    </VBox>
+                </ScrollPane>
+                
+            </VBox>
+            
+            <!-- Cart Panel -->
+            <VBox prefWidth="400" minWidth="400" maxWidth="400" spacing="0" 
+                  style="-fx-background-color: #1E293B; -fx-border-width: 0 0 0 1; -fx-border-color: rgba(148, 163, 184, 0.1);">
+                
+                <!-- Cart Header -->
+                <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-padding: 20; -fx-background-color: #334155;">
+                    <FontIcon iconLiteral="fas-shopping-cart" iconSize="24" style="-fx-icon-color: #6366F1;"/>
+                    <VBox HBox.hgrow="ALWAYS">
+                        <Label text="Panier" style="-fx-text-fill: #F8FAFC; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                        <Label fx:id="cartItemsCountLabel" text="0 articles" style="-fx-text-fill: #94A3B8; -fx-font-size: 13px;"/>
+                    </VBox>
+                    <MFXButton styleClass="btn-icon" onAction="#clearCart">
+                        <graphic><FontIcon iconLiteral="fas-trash" iconSize="16" style="-fx-icon-color: #EF4444;"/></graphic>
+                    </MFXButton>
+                </HBox>
+                
+                <!-- Cart Items -->
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
+                    <VBox fx:id="cartItemsContainer" spacing="0" style="-fx-padding: 10;">
+                        <!-- Cart items will be populated here -->
+                    </VBox>
+                </ScrollPane>
+                
+                <!-- Cart Summary -->
+                <VBox spacing="12" style="-fx-padding: 20; -fx-background-color: #0F172A;">
+                    
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Sous-total" style="-fx-text-fill: #94A3B8; -fx-font-size: 14px;" HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="subtotalLabel" text="0 FCFA" style="-fx-text-fill: #F8FAFC; -fx-font-size: 14px;"/>
+                    </HBox>
+                    
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Remise" style="-fx-text-fill: #94A3B8; -fx-font-size: 14px;" HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="discountLabel" text="0 FCFA" style="-fx-text-fill: #F59E0B; -fx-font-size: 14px;"/>
+                    </HBox>
+                    
+                    <Separator style="-fx-background-color: rgba(148, 163, 184, 0.2);"/>
+                    
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="TOTAL" style="-fx-text-fill: #F8FAFC; -fx-font-size: 18px; -fx-font-weight: bold;" HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="totalLabel" text="0 FCFA" style="-fx-text-fill: #10B981; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                    </HBox>
+                    
+                    <!-- Customer Info -->
+                    <VBox spacing="10" style="-fx-padding: 15 0 0 0;">
+                        <MFXTextField fx:id="customerNameField" 
+                                      promptText="Nom du client (optionnel)" 
+                                      floatMode="DISABLED"
+                                      styleClass="login-field"/>
+                        <MFXTextField fx:id="customerPhoneField" 
+                                      promptText="Téléphone (optionnel)" 
+                                      floatMode="DISABLED"
+                                      styleClass="login-field"/>
+                    </VBox>
+                    
+                    <!-- Payment Buttons -->
+                    <HBox spacing="10">
+                        <MFXButton text="Espèces" fx:id="cashBtn" styleClass="btn, btn-secondary" 
+                                   onAction="#selectCashPayment" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <MFXButton text="Carte" fx:id="cardBtn" styleClass="btn, btn-secondary" 
+                                   onAction="#selectCardPayment" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <MFXButton text="Mobile" fx:id="mobileBtn" styleClass="btn, btn-secondary" 
+                                   onAction="#selectMobilePayment" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    </HBox>
+                    
+                    <!-- Validate Button -->
+                    <MFXButton text="Valider la vente" styleClass="btn, btn-primary" 
+                               onAction="#handleValidateSale" maxWidth="Infinity" prefHeight="55">
+                        <graphic><FontIcon iconLiteral="fas-check" iconSize="18"/></graphic>
+                    </MFXButton>
+                    
+                </VBox>
+                
+            </VBox>
+            
+        </HBox>
+    </center>
+    
+</BorderPane>
