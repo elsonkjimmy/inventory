@@ -1,0 +1,503 @@
+/*
+ * ===================================================
+ *  COMPONENTS STYLESHEET
+ *  Additional component-specific styles
+ * ===================================================
+ */
+
+/* ========== MATERIALFX OVERRIDES ========== */
+
+/* MFXTextField */
+.mfx-text-field {
+    -mfx-main-color: #6366F1;
+    -mfx-text-fill: #F8FAFC;
+    -fx-background-color: rgba(51, 65, 85, 0.6);
+    -fx-background-radius: 12px;
+}
+
+.mfx-text-field .text-field {
+    -fx-text-fill: #F8FAFC;
+    -fx-prompt-text-fill: #64748B;
+}
+
+.mfx-text-field:focused {
+    -fx-background-color: rgba(51, 65, 85, 0.8);
+    -fx-border-color: #6366F1;
+}
+
+/* MFXPasswordField */
+.mfx-password-field {
+    -mfx-main-color: #6366F1;
+    -mfx-text-fill: #F8FAFC;
+    -fx-background-color: rgba(51, 65, 85, 0.6);
+    -fx-background-radius: 12px;
+}
+
+.mfx-password-field .text-field {
+    -fx-text-fill: #F8FAFC;
+    -fx-prompt-text-fill: #64748B;
+}
+
+/* MFXButton */
+.mfx-button {
+    -mfx-button-type: RAISED;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+}
+
+.mfx-button.primary {
+    -fx-background-color: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+    -fx-text-fill: white;
+}
+
+.mfx-button.primary:hover {
+    -fx-background-color: linear-gradient(135deg, #818CF8 0%, #A78BFA 100%);
+}
+
+.mfx-button.secondary {
+    -fx-background-color: rgba(51, 65, 85, 0.8);
+    -fx-text-fill: #F8FAFC;
+    -fx-border-color: rgba(148, 163, 184, 0.3);
+    -fx-border-width: 1px;
+}
+
+.mfx-button.secondary:hover {
+    -fx-background-color: rgba(99, 102, 241, 0.2);
+    -fx-border-color: #6366F1;
+}
+
+/* MFXTableView */
+.mfx-table-view {
+    -fx-background-color: transparent;
+    -mfx-header-cell-background: #334155;
+    -mfx-header-cell-border: rgba(148, 163, 184, 0.2);
+}
+
+.mfx-table-view .mfx-table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent rgba(148, 163, 184, 0.1) transparent;
+}
+
+.mfx-table-view .mfx-table-row-cell:hover {
+    -fx-background-color: rgba(99, 102, 241, 0.1);
+}
+
+.mfx-table-view .mfx-table-row-cell:selected {
+    -fx-background-color: rgba(99, 102, 241, 0.2);
+}
+
+/* MFXComboBox */
+.mfx-combo-box {
+    -mfx-main-color: #6366F1;
+    -fx-background-color: rgba(51, 65, 85, 0.6);
+    -fx-background-radius: 12px;
+}
+
+.mfx-combo-box .mfx-text-field {
+    -fx-text-fill: #F8FAFC;
+}
+
+/* MFXDatePicker */
+.mfx-date-picker {
+    -mfx-main-color: #6366F1;
+    -fx-background-color: rgba(51, 65, 85, 0.6);
+    -fx-background-radius: 12px;
+}
+
+/* MFXCheckbox */
+.mfx-checkbox {
+    -mfx-main-color: #6366F1;
+}
+
+.mfx-checkbox .box {
+    -fx-background-color: rgba(51, 65, 85, 0.8);
+    -fx-border-color: rgba(148, 163, 184, 0.3);
+    -fx-border-radius: 4px;
+}
+
+.mfx-checkbox:selected .box {
+    -fx-background-color: #6366F1;
+    -fx-border-color: #6366F1;
+}
+
+/* MFXProgressBar */
+.mfx-progress-bar {
+    -mfx-bar-color: linear-gradient(90deg, #6366F1, #8B5CF6);
+}
+
+.mfx-progress-bar .track {
+    -fx-background-color: rgba(51, 65, 85, 0.8);
+    -fx-background-radius: 10px;
+}
+
+.mfx-progress-bar .bar {
+    -fx-background-radius: 10px;
+}
+
+/* MFXScrollPane */
+.mfx-scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.mfx-scroll-pane .scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.mfx-scroll-pane .scroll-bar .thumb {
+    -fx-background-color: rgba(148, 163, 184, 0.3);
+    -fx-background-radius: 10px;
+}
+
+/* MFXTooltip */
+.mfx-tooltip {
+    -fx-background-color: #1E293B;
+    -fx-text-fill: #F8FAFC;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 15px;
+    -fx-border-color: rgba(148, 163, 184, 0.2);
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+}
+
+/* ========== DIALOG STYLES ========== */
+
+.dialog-overlay {
+    -fx-background-color: rgba(15, 23, 42, 0.8);
+}
+
+.dialog-container {
+    -fx-background-color: #1E293B;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-border-color: rgba(148, 163, 184, 0.2);
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 40, 0.2, 0, 15);
+}
+
+.dialog-header {
+    -fx-padding: 25px 25px 20px 25px;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: rgba(148, 163, 184, 0.1);
+}
+
+.dialog-title {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.dialog-subtitle {
+    -fx-text-fill: #94A3B8;
+    -fx-font-size: 14px;
+}
+
+.dialog-body {
+    -fx-padding: 25px;
+}
+
+.dialog-footer {
+    -fx-padding: 15px 25px 25px 25px;
+    -fx-spacing: 12px;
+    -fx-alignment: center-right;
+}
+
+/* ========== CHART STYLES ========== */
+
+.chart {
+    -fx-background-color: transparent;
+}
+
+.chart-legend {
+    -fx-background-color: rgba(51, 65, 85, 0.5);
+    -fx-background-radius: 8px;
+    -fx-padding: 10px;
+}
+
+.chart-legend-item {
+    -fx-text-fill: #CBD5E1;
+}
+
+.chart-title {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* Pie Chart */
+.chart-pie-label {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 12px;
+}
+
+/* Line/Area Chart */
+.chart-vertical-grid-lines {
+    -fx-stroke: rgba(148, 163, 184, 0.1);
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: rgba(148, 163, 184, 0.1);
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.axis {
+    -fx-tick-label-fill: #94A3B8;
+}
+
+.axis-label {
+    -fx-text-fill: #94A3B8;
+}
+
+/* Bar Chart */
+.default-color0.chart-bar {
+    -fx-bar-fill: #6366F1;
+}
+
+.default-color1.chart-bar {
+    -fx-bar-fill: #10B981;
+}
+
+.default-color2.chart-bar {
+    -fx-bar-fill: #F59E0B;
+}
+
+.default-color3.chart-bar {
+    -fx-bar-fill: #EF4444;
+}
+
+.default-color4.chart-bar {
+    -fx-bar-fill: #8B5CF6;
+}
+
+.default-color5.chart-bar {
+    -fx-bar-fill: #EC4899;
+}
+
+/* ========== SEARCH BOX ========== */
+
+.search-box {
+    -fx-background-color: rgba(51, 65, 85, 0.6);
+    -fx-background-radius: 12px;
+    -fx-padding: 12px 15px;
+    -fx-border-color: rgba(148, 163, 184, 0.2);
+    -fx-border-width: 1px;
+    -fx-border-radius: 12px;
+}
+
+.search-box:focused {
+    -fx-border-color: #6366F1;
+    -fx-background-color: rgba(51, 65, 85, 0.8);
+}
+
+.search-box .text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: #F8FAFC;
+    -fx-prompt-text-fill: #64748B;
+}
+
+.search-icon {
+    -fx-icon-color: #64748B;
+    -fx-fill: #64748B;
+}
+
+/* ========== PRODUCT CARD ========== */
+
+.product-card {
+    -fx-background-color: #1E293B;
+    -fx-background-radius: 16px;
+    -fx-padding: 15px;
+    -fx-border-radius: 16px;
+    -fx-border-color: rgba(148, 163, 184, 0.1);
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+}
+
+.product-card:hover {
+    -fx-border-color: rgba(99, 102, 241, 0.5);
+    -fx-effect: dropshadow(gaussian, rgba(99, 102, 241, 0.2), 15, 0, 0, 5);
+}
+
+.product-image {
+    -fx-background-color: #334155;
+    -fx-background-radius: 12px;
+}
+
+.product-name {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.product-category {
+    -fx-text-fill: #94A3B8;
+    -fx-font-size: 12px;
+}
+
+.product-price {
+    -fx-text-fill: #10B981;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.product-stock {
+    -fx-padding: 4px 10px;
+    -fx-background-radius: 20px;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.product-stock.in-stock {
+    -fx-background-color: rgba(16, 185, 129, 0.2);
+    -fx-text-fill: #34D399;
+}
+
+.product-stock.low-stock {
+    -fx-background-color: rgba(245, 158, 11, 0.2);
+    -fx-text-fill: #FBBF24;
+}
+
+.product-stock.out-of-stock {
+    -fx-background-color: rgba(239, 68, 68, 0.2);
+    -fx-text-fill: #F87171;
+}
+
+/* ========== ACTIVITY FEED ========== */
+
+.activity-item {
+    -fx-padding: 12px 0;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: rgba(148, 163, 184, 0.1);
+}
+
+.activity-icon {
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+    -fx-background-radius: 10px;
+}
+
+.activity-icon.sale {
+    -fx-background-color: rgba(16, 185, 129, 0.2);
+}
+
+.activity-icon.product {
+    -fx-background-color: rgba(99, 102, 241, 0.2);
+}
+
+.activity-icon.alert {
+    -fx-background-color: rgba(245, 158, 11, 0.2);
+}
+
+.activity-title {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 14px;
+}
+
+.activity-description {
+    -fx-text-fill: #94A3B8;
+    -fx-font-size: 12px;
+}
+
+.activity-time {
+    -fx-text-fill: #64748B;
+    -fx-font-size: 11px;
+}
+
+/* ========== LOADING SPINNER ========== */
+
+.loading-spinner {
+    -fx-arc-width: 4px;
+    -fx-arc-height: 4px;
+}
+
+.loading-overlay {
+    -fx-background-color: rgba(15, 23, 42, 0.7);
+}
+
+.loading-text {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 14px;
+}
+
+/* ========== EMPTY STATE ========== */
+
+.empty-state {
+    -fx-padding: 60px 40px;
+    -fx-alignment: center;
+}
+
+.empty-state-icon {
+    -fx-icon-color: #475569;
+    -fx-fill: #475569;
+}
+
+.empty-state-title {
+    -fx-text-fill: #CBD5E1;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.empty-state-description {
+    -fx-text-fill: #64748B;
+    -fx-font-size: 14px;
+}
+
+/* ========== QUICK ACTIONS ========== */
+
+.quick-action-btn {
+    -fx-background-color: rgba(51, 65, 85, 0.6);
+    -fx-background-radius: 12px;
+    -fx-padding: 15px 20px;
+    -fx-border-radius: 12px;
+    -fx-border-color: rgba(148, 163, 184, 0.1);
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+}
+
+.quick-action-btn:hover {
+    -fx-background-color: rgba(99, 102, 241, 0.15);
+    -fx-border-color: rgba(99, 102, 241, 0.5);
+}
+
+.quick-action-btn .quick-action-icon {
+    -fx-icon-color: #6366F1;
+    -fx-fill: #6366F1;
+}
+
+.quick-action-btn .quick-action-label {
+    -fx-text-fill: #CBD5E1;
+    -fx-font-size: 13px;
+}
+
+/* ========== FILTER CHIPS ========== */
+
+.filter-chip {
+    -fx-background-color: rgba(51, 65, 85, 0.6);
+    -fx-background-radius: 20px;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 20px;
+    -fx-border-color: rgba(148, 163, 184, 0.2);
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+}
+
+.filter-chip:hover {
+    -fx-background-color: rgba(99, 102, 241, 0.15);
+    -fx-border-color: rgba(99, 102, 241, 0.5);
+}
+
+.filter-chip.active {
+    -fx-background-color: rgba(99, 102, 241, 0.2);
+    -fx-border-color: #6366F1;
+}
+
+.filter-chip .label {
+    -fx-text-fill: #CBD5E1;
+    -fx-font-size: 13px;
+}
+
+.filter-chip.active .label {
+    -fx-text-fill: #A5B4FC;
+    -fx-font-weight: bold;
+}

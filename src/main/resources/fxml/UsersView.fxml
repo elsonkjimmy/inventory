@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane styleClass="main-container" 
+            xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.inventory.controllers.UsersController">
+    
+    <!-- SIDEBAR -->
+    <left>
+        <VBox styleClass="sidebar" spacing="5">
+            <VBox styleClass="sidebar-header" spacing="5">
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <StackPane>
+                        <Circle radius="22" styleClass="logo-circle"/>
+                        <FontIcon iconLiteral="fas-boxes" iconSize="22" styleClass="logo-icon"/>
+                    </StackPane>
+                    <VBox spacing="2">
+                        <Label text="StockPro" styleClass="sidebar-logo"/>
+                        <Label text="Gestion de Stock" styleClass="sidebar-subtitle"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+            
+            <Separator opacity="0.1"/>
+            
+            <VBox spacing="4">
+                <Label text="MENU PRINCIPAL" styleClass="nav-section-title"/>
+                
+                <MFXButton text="Tableau de bord" styleClass="nav-item" 
+                           onAction="#navigateToDashboard" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-tachometer-alt" iconSize="20"/></graphic>
+                </MFXButton>
+                
+                <MFXButton text="Produits" styleClass="nav-item" 
+                           onAction="#navigateToProducts" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-box" iconSize="20"/></graphic>
+                </MFXButton>
+                
+                <MFXButton text="Catégories" styleClass="nav-item" 
+                           onAction="#navigateToCategories" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-folder" iconSize="18"/></graphic>
+                </MFXButton>
+                
+                <MFXButton text="Ventes" styleClass="nav-item" 
+                           onAction="#navigateToSales" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-shopping-cart" iconSize="18"/></graphic>
+                </MFXButton>
+            </VBox>
+            
+            <VBox spacing="4">
+                <Label text="ADMINISTRATION" styleClass="nav-section-title"/>
+                <MFXButton text="Utilisateurs" styleClass="nav-item, active" 
+                           maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-users" iconSize="18"/></graphic>
+                </MFXButton>
+                <MFXButton text="Rapports" styleClass="nav-item" 
+                           onAction="#navigateToReports" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-chart-bar" iconSize="18"/></graphic>
+                </MFXButton>
+            </VBox>
+            
+            <Region VBox.vgrow="ALWAYS"/>
+            
+            <VBox styleClass="user-profile-section" spacing="12">
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <StackPane>
+                        <Circle radius="20" styleClass="user-avatar"/>
+                        <FontIcon iconLiteral="fas-user" iconSize="18" styleClass="logo-icon"/>
+                    </StackPane>
+                    <VBox spacing="2" HBox.hgrow="ALWAYS">
+                        <Label fx:id="userNameLabel" text="Utilisateur" styleClass="user-name"/>
+                        <Label fx:id="userRoleLabel" text="Rôle" styleClass="user-role"/>
+                    </VBox>
+                </HBox>
+                <MFXButton text="Déconnexion" styleClass="nav-item" onAction="#handleLogout" 
+                           maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-sign-out-alt" iconSize="16"/></graphic>
+                </MFXButton>
+            </VBox>
+        </VBox>
+    </left>
+    
+    <!-- CONTENT -->
+    <center>
+        <VBox styleClass="content-area" spacing="20">
+            
+            <!-- Header -->
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label text="Gestion des Utilisateurs" styleClass="page-title"/>
+                    <Label text="Gérez les comptes et les permissions" styleClass="page-subtitle"/>
+                </VBox>
+                <MFXButton text="Nouvel utilisateur" styleClass="btn, btn-primary" onAction="#handleAddUser">
+                    <graphic><FontIcon iconLiteral="fas-user-plus" iconSize="14"/></graphic>
+                </MFXButton>
+            </HBox>
+            
+            <!-- Stats -->
+            <HBox spacing="15">
+                <VBox styleClass="stat-card, primary" HBox.hgrow="ALWAYS" spacing="8">
+                    <padding><Insets topRightBottomLeft="15"/></padding>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <FontIcon iconLiteral="fas-users" iconSize="20" style="-fx-icon-color: #6366F1;"/>
+                        <Label fx:id="totalUsersLabel" text="0" styleClass="stat-value" style="-fx-font-size: 24px;"/>
+                    </HBox>
+                    <Label text="Total utilisateurs" styleClass="stat-label"/>
+                </VBox>
+                
+                <VBox styleClass="stat-card, success" HBox.hgrow="ALWAYS" spacing="8">
+                    <padding><Insets topRightBottomLeft="15"/></padding>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <FontIcon iconLiteral="fas-user-shield" iconSize="20" style="-fx-icon-color: #10B981;"/>
+                        <Label fx:id="adminCountLabel" text="0" styleClass="stat-value" style="-fx-font-size: 24px;"/>
+                    </HBox>
+                    <Label text="Administrateurs" styleClass="stat-label"/>
+                </VBox>
+                
+                <VBox styleClass="stat-card, warning" HBox.hgrow="ALWAYS" spacing="8">
+                    <padding><Insets topRightBottomLeft="15"/></padding>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <FontIcon iconLiteral="fas-user-tie" iconSize="20" style="-fx-icon-color: #F59E0B;"/>
+                        <Label fx:id="managerCountLabel" text="0" styleClass="stat-value" style="-fx-font-size: 24px;"/>
+                    </HBox>
+                    <Label text="Gestionnaires" styleClass="stat-label"/>
+                </VBox>
+            </HBox>
+            
+            <!-- Search -->
+            <HBox styleClass="card" spacing="15" alignment="CENTER_LEFT">
+                <padding><Insets top="15" right="20" bottom="15" left="20"/></padding>
+                
+                <HBox styleClass="search-box" alignment="CENTER_LEFT" spacing="10" HBox.hgrow="ALWAYS" maxWidth="400">
+                    <FontIcon iconLiteral="fas-search" iconSize="16" styleClass="search-icon"/>
+                    <MFXTextField fx:id="searchField" 
+                                  promptText="Rechercher un utilisateur..." 
+                                  floatMode="DISABLED"
+                                  HBox.hgrow="ALWAYS"/>
+                </HBox>
+                
+                <Region HBox.hgrow="ALWAYS"/>
+                
+                <MFXButton styleClass="btn-icon" onAction="#refreshUsers">
+                    <graphic><FontIcon iconLiteral="fas-sync-alt" iconSize="16"/></graphic>
+                </MFXButton>
+            </HBox>
+            
+            <!-- Users Table -->
+            <VBox styleClass="card" VBox.vgrow="ALWAYS" spacing="0">
+                <padding><Insets topRightBottomLeft="0"/></padding>
+                
+                <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="usersTableContainer" spacing="0"/>
+                </ScrollPane>
+            </VBox>
+            
+        </VBox>
+    </center>
+    
+</BorderPane>

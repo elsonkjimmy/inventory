@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane styleClass="main-container" 
+            xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.inventory.controllers.DashboardController">
+    
+    <!-- SIDEBAR -->
+    <left>
+        <VBox styleClass="sidebar" spacing="5">
+            
+            <!-- Logo Header -->
+            <VBox styleClass="sidebar-header" spacing="5">
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <StackPane>
+                        <Circle radius="22" styleClass="logo-circle"/>
+                        <FontIcon iconLiteral="fas-boxes" iconSize="22" styleClass="logo-icon"/>
+                    </StackPane>
+                    <VBox spacing="2">
+                        <Label text="StockPro" styleClass="sidebar-logo"/>
+                        <Label text="Gestion de Stock" styleClass="sidebar-subtitle"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+            
+            <Separator opacity="0.1"/>
+            
+            <!-- Navigation principale -->
+            <VBox spacing="4">
+                <Label text="MENU PRINCIPAL" styleClass="nav-section-title"/>
+                
+                <MFXButton fx:id="navDashboard" text="Tableau de bord" styleClass="nav-item, active" 
+                           onAction="#navigateToDashboard" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-tachometer-alt" iconSize="20"/></graphic>
+                </MFXButton>
+                
+                <MFXButton fx:id="navProducts" text="Produits" styleClass="nav-item" 
+                           onAction="#navigateToProducts" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-box" iconSize="20"/></graphic>
+                </MFXButton>
+                
+                <MFXButton fx:id="navCategories" text="Catégories" styleClass="nav-item" 
+                           onAction="#navigateToCategories" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-folder" iconSize="18"/></graphic>
+                </MFXButton>
+                
+                <MFXButton fx:id="navSales" text="Ventes" styleClass="nav-item" 
+                           onAction="#navigateToSales" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-shopping-cart" iconSize="18"/></graphic>
+                </MFXButton>
+            </VBox>
+            
+            <!-- Section Admin -->
+            <VBox fx:id="adminSection" spacing="4" managed="false" visible="false">
+                <Label text="ADMINISTRATION" styleClass="nav-section-title"/>
+                
+                <MFXButton fx:id="navUsers" text="Utilisateurs" styleClass="nav-item" 
+                           onAction="#navigateToUsers" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-users" iconSize="18"/></graphic>
+                </MFXButton>
+                
+                <MFXButton fx:id="navReports" text="Rapports" styleClass="nav-item" 
+                           onAction="#navigateToReports" maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-chart-bar" iconSize="18"/></graphic>
+                </MFXButton>
+            </VBox>
+            
+            <!-- Spacer -->
+            <Region VBox.vgrow="ALWAYS"/>
+            
+            <!-- User Profile -->
+            <VBox styleClass="user-profile-section" spacing="12">
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <StackPane>
+                        <Circle radius="20" styleClass="user-avatar"/>
+                        <FontIcon iconLiteral="fas-user" iconSize="18" styleClass="logo-icon"/>
+                    </StackPane>
+                    <VBox spacing="2" HBox.hgrow="ALWAYS">
+                        <Label fx:id="userNameLabel" text="Utilisateur" styleClass="user-name"/>
+                        <Label fx:id="userRoleLabel" text="Rôle" styleClass="user-role"/>
+                    </VBox>
+                </HBox>
+                
+                <MFXButton text="Déconnexion" styleClass="nav-item" onAction="#handleLogout" 
+                           maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic><FontIcon iconLiteral="fas-sign-out-alt" iconSize="16"/></graphic>
+                </MFXButton>
+            </VBox>
+            
+        </VBox>
+    </left>
+    
+    <!-- CONTENT -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="content-scroll">
+            <VBox styleClass="content-area" spacing="25">
+                
+                <!-- Header -->
+                <VBox styleClass="content-header" spacing="8">
+                    <HBox alignment="CENTER_LEFT">
+                        <VBox HBox.hgrow="ALWAYS">
+                            <Label fx:id="greetingLabel" text="Bonjour, Utilisateur 👋" styleClass="page-title"/>
+                            <Label fx:id="dateLabel" text="Vendredi 17 Janvier 2025" styleClass="page-subtitle"/>
+                        </VBox>
+                        <HBox spacing="12">
+                            <!-- Notifications -->
+                            <StackPane>
+                                <MFXButton styleClass="btn-icon">
+                                    <graphic><FontIcon iconLiteral="fas-bell" iconSize="20"/></graphic>
+                                </MFXButton>
+                                <Circle fx:id="notificationBadge" radius="8" styleClass="notification-dot" 
+                                        translateX="12" translateY="-10" managed="false" visible="false"/>
+                            </StackPane>
+                            
+                            <!-- Quick Add -->
+                            <MFXButton text="Nouvelle vente" styleClass="btn, btn-primary" onAction="#handleNewSale">
+                                <graphic><FontIcon iconLiteral="fas-plus" iconSize="14"/></graphic>
+                            </MFXButton>
+                        </HBox>
+                    </HBox>
+                </VBox>
+                
+                <!-- Stats Cards -->
+                <FlowPane hgap="20" vgap="20" styleClass="stats-container">
+                    
+                    <!-- Total Produits -->
+                    <VBox styleClass="stat-card, primary" spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <StackPane styleClass="stat-icon, primary" alignment="CENTER">
+                                <FontIcon iconLiteral="fas-box" iconSize="24" style="-fx-icon-color: #6366F1;"/>
+                            </StackPane>
+                            <VBox>
+                                <Label fx:id="totalProductsLabel" text="0" styleClass="stat-value"/>
+                                <Label text="Produits en stock" styleClass="stat-label"/>
+                            </VBox>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="5">
+                            <FontIcon iconLiteral="fas-arrow-up" iconSize="12" style="-fx-icon-color: #10B981;"/>
+                            <Label text="+12% ce mois" styleClass="stat-change, positive"/>
+                        </HBox>
+                    </VBox>
+                    
+                    <!-- Ventes du jour -->
+                    <VBox styleClass="stat-card, success" spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <StackPane styleClass="stat-icon, success" alignment="CENTER">
+                                <FontIcon iconLiteral="fas-shopping-cart" iconSize="22" style="-fx-icon-color: #10B981;"/>
+                            </StackPane>
+                            <VBox>
+                                <Label fx:id="todaySalesLabel" text="0 FCFA" styleClass="stat-value"/>
+                                <Label text="Ventes aujourd'hui" styleClass="stat-label"/>
+                            </VBox>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="5">
+                            <FontIcon iconLiteral="fas-arrow-up" iconSize="12" style="-fx-icon-color: #10B981;"/>
+                            <Label fx:id="salesChangeLabel" text="+8% vs hier" styleClass="stat-change, positive"/>
+                        </HBox>
+                    </VBox>
+                    
+                    <!-- Stock faible -->
+                    <VBox styleClass="stat-card, warning" spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <StackPane styleClass="stat-icon, warning" alignment="CENTER">
+                                <FontIcon iconLiteral="fas-exclamation-triangle" iconSize="20" style="-fx-icon-color: #F59E0B;"/>
+                            </StackPane>
+                            <VBox>
+                                <Label fx:id="lowStockLabel" text="0" styleClass="stat-value"/>
+                                <Label text="Stock faible" styleClass="stat-label"/>
+                            </VBox>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Nécessite attention" styleClass="stat-change" style="-fx-text-fill: #F59E0B;"/>
+                        </HBox>
+                    </VBox>
+                    
+                    <!-- Chiffre d'affaires -->
+                    <VBox styleClass="stat-card" spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <StackPane styleClass="stat-icon, primary" alignment="CENTER">
+                                <FontIcon iconLiteral="fas-coins" iconSize="22" style="-fx-icon-color: #8B5CF6;"/>
+                            </StackPane>
+                            <VBox>
+                                <Label fx:id="totalRevenueLabel" text="0 FCFA" styleClass="stat-value"/>
+                                <Label text="Chiffre d'affaires" styleClass="stat-label"/>
+                            </VBox>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="5">
+                            <FontIcon iconLiteral="fas-arrow-up" iconSize="12" style="-fx-icon-color: #10B981;"/>
+                            <Label text="Ce mois" styleClass="stat-change, positive"/>
+                        </HBox>
+                    </VBox>
+                    
+                </FlowPane>
+                
+                <!-- Charts Row -->
+                <VBox spacing="20">
+                    
+                    <!-- Sales Chart -->
+                    <VBox styleClass="card" VBox.vgrow="ALWAYS" spacing="15">
+                        <HBox styleClass="card-header" alignment="CENTER_LEFT">
+                            <Label text="Ventes des 7 derniers jours" styleClass="card-title"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <MFXButton text="Voir tout" styleClass="btn-secondary" onAction="#navigateToReports"/>
+                        </HBox>
+                        <BarChart fx:id="salesChart" legendVisible="false" minHeight="280">
+                            <xAxis><CategoryAxis label="Jour"/></xAxis>
+                            <yAxis><NumberAxis label="Montant (FCFA)"/></yAxis>
+                        </BarChart>
+                    </VBox>
+                    
+                    <!-- Categories Pie Chart -->
+                    <VBox styleClass="card" spacing="15">
+                        <HBox styleClass="card-header" alignment="CENTER_LEFT">
+                            <Label text="Répartition par catégorie" styleClass="card-title"/>
+                        </HBox>
+                        <PieChart fx:id="categoriesChart" legendSide="BOTTOM" minHeight="280"/>
+                    </VBox>
+                    
+                </VBox>
+                
+                <!-- Bottom Row -->
+                <VBox spacing="20">
+                    
+                    <!-- Produits à stock faible -->
+                    <VBox styleClass="card" VBox.vgrow="ALWAYS" spacing="15">
+                        <HBox styleClass="card-header" alignment="CENTER_LEFT">
+                            <FontIcon iconLiteral="fas-exclamation-circle" iconSize="18" style="-fx-icon-color: #F59E0B;"/>
+                            <Label text="Produits à stock faible" styleClass="card-title"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <MFXButton text="Voir tout" styleClass="btn-secondary" onAction="#navigateToProducts"/>
+                        </HBox>
+                        <VBox fx:id="lowStockContainer" styleClass="card-body" spacing="10">
+                            <!-- Dynamically populated -->
+                            <Label text="Aucun produit en stock faible" styleClass="text-muted" 
+                                   style="-fx-padding: 20px; -fx-alignment: center;"/>
+                        </VBox>
+                    </VBox>
+                    
+                    <!-- Activité récente -->
+                    <VBox styleClass="card" spacing="15">
+                        <HBox styleClass="card-header" alignment="CENTER_LEFT">
+                            <FontIcon iconLiteral="fas-history" iconSize="18" style="-fx-icon-color: #6366F1;"/>
+                            <Label text="Activité récente" styleClass="card-title"/>
+                        </HBox>
+                        <VBox fx:id="activityContainer" styleClass="card-body" spacing="0">
+                            <!-- Dynamically populated -->
+                            <Label text="Aucune activité récente" styleClass="text-muted"
+                                   style="-fx-padding: 20px; -fx-alignment: center;"/>
+                        </VBox>
+                    </VBox>
+                    
+                </VBox>
+                
+                <!-- Quick Actions -->
+                <VBox styleClass="card" spacing="15">
+                    <Label text="Actions rapides" styleClass="card-title"/>
+                    <FlowPane hgap="15" vgap="15">
+                        <MFXButton text="Ajouter un produit" styleClass="quick-action-btn" onAction="#handleAddProduct">
+                            <graphic><FontIcon iconLiteral="fas-plus-circle" iconSize="18"/></graphic>
+                        </MFXButton>
+                        <MFXButton text="Nouvelle vente" styleClass="quick-action-btn" onAction="#handleNewSale">
+                            <graphic><FontIcon iconLiteral="fas-cash-register" iconSize="18"/></graphic>
+                        </MFXButton>
+                        <MFXButton text="Générer rapport" styleClass="quick-action-btn" onAction="#handleGenerateReport">
+                            <graphic><FontIcon iconLiteral="fas-file-pdf" iconSize="18"/></graphic>
+                        </MFXButton>
+                        <MFXButton text="Voir les alertes" styleClass="quick-action-btn" onAction="#handleViewAlerts">
+                            <graphic><FontIcon iconLiteral="fas-bell" iconSize="18"/></graphic>
+                        </MFXButton>
+                    </FlowPane>
+                </VBox>
+                
+            </VBox>
+        </ScrollPane>
+    </center>
+    
+</BorderPane>
