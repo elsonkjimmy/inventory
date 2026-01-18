@@ -133,14 +133,3 @@ Le projet consiste à développer un **Système de Gestion de Stock** pour une e
 | Sprint 10 | Tests & optimisation        | Toutes           | —      |
 
 ---
-
-## ✅ Conseils
-
-* Sprint = **0,5 à 1 jour**
-* Priorisation **MoSCoW**
-* Tester à chaque fin de sprint
-* Centraliser bugs et feedbacks pour le sprint final
-
----
-
-🚀 **Document prêt pour présentation académique et implémentation Agile**
